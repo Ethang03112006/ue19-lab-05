@@ -25,8 +25,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build . --file Dockerfile --tag ghcr.io/${{ toLower(github.repository_owner) }}/ue19-lab-05:latest
+          OWNER=${{ github.repository_owner }}
+          OWNER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          docker build . --file Dockerfile --tag ghcr.io/$OWNER/ue19-lab-05:latest
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ toLower(github.repository_owner) }}/ue19-lab-05:latest
+          OWNER=${{ github.repository_owner }}
+          OWNER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          docker push ghcr.io/$OWNER/ue19-lab-05:latest
